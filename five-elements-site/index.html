@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>五行生活指南 | Free Five Elements Reading</title>
+    <meta
+      name="description"
+      content="免费了解你的五行能量、幸运颜色与日常搭配建议。一个温和、现代的八字五行生活指南。"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="五行生活指南首页">
+        <span class="brand-mark">五</span>
+        <span>
+          <strong>五行生活指南</strong>
+          <small>Five Elements Guide</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主要导航">
+        <a href="#reading">免费测算</a>
+        <a href="#learn">知识分享</a>
+        <a href="#trust">隐私与信任</a>
+      </nav>
+      <a class="nav-cta" href="#reading">开始测算</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <img src="assets/hero-five-elements.png" alt="" />
+        </div>
+        <div class="hero-content">
+          <p class="eyebrow">Modern BaZi & Five Elements Guide</p>
+          <h1>认识你的五行能量</h1>
+          <p class="hero-copy">
+            输入出生信息，生成一份温和的八字五行基础报告。了解你的日主、五行分布、喜用方向、适合颜色与个人风格，不做恐吓式断命。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#reading">开始免费测算</a>
+            <a class="button secondary" href="#learn">先了解五行</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-band" aria-label="网站原则">
+        <div class="principle">
+          <span>01</span>
+          <strong>不制造焦虑</strong>
+          <p>只提供倾向和参考，不用恐吓式语言定义你的命运。</p>
+        </div>
+        <div class="principle">
+          <span>02</span>
+          <strong>给出清晰理由</strong>
+          <p>每个颜色、元素和建议都对应可理解的五行逻辑。</p>
+        </div>
+        <div class="principle">
+          <span>03</span>
+          <strong>尊重隐私</strong>
+          <p>出生信息只用于生成分析，不公开、不出售。</p>
+        </div>
+      </section>
+
+      <section class="section reading-section" id="reading">
+        <div class="section-heading">
+          <p class="eyebrow">Free Reading</p>
+          <h2>免费八字五行基础报告</h2>
+          <p>
+            输入出生信息后，系统会先排出四柱，参考日主、月令与五行分布，生成喜用方向、逐步大运、关键年份、长期运势走向和下个月调整建议。
+          </p>
+        </div>
+
+        <div class="reading-layout">
+          <form class="reading-form" id="readingForm">
+            <div class="form-grid">
+              <label>
+                出生日期
+                <input id="birthDate" name="birthDate" type="date" required />
+              </label>
+              <label>
+                出生时间
+                <input id="birthClockTime" name="birthClockTime" type="time" required />
+              </label>
+              <label>
+                出生地
+                <select id="birthPlacePreset" name="birthPlacePreset">
+                  <option value="121.47|8|上海">上海 Shanghai</option>
+                  <option value="116.40|8|北京 Beijing</option>
+                  <option value="113.26|8|广州 Guangzhou</option>
+                  <option value="114.17|8|深圳 Shenzhen</option>
+                  <option value="114.17|8|香港 Hong Kong</option>
+                  <option value="103.82|8|新加坡 Singapore</option>
+                  <option value="101.69|8|吉隆坡 Kuala Lumpur</option>
+                  <option value="-73.94|-5|纽约 New York</option>
+                  <option value="-118.24|-8|洛杉矶 Los Angeles</option>
+                  <option value="custom">手动输入经度/时区</option>
+                </select>
+              </label>
+              <label>
+                出生城市 / 地区
+                <input id="birthCity" name="birthCity" type="text" placeholder="例如：Singapore / New York / Paris" />
+              </label>
+              <label>
+                出生地经度
+                <input id="longitude" name="longitude" type="number" step="0.01" value="121.47" />
+              </label>
+              <label>
+                当地时区 UTC
+                <input id="timezone" name="timezone" type="number" step="1" value="8" />
+              </label>
+              <label>
+                性别
+                <select id="gender" name="gender" required>
+                  <option value="female">女</option>
+                  <option value="male">男</option>
+                  <option value="private">暂不透露</option>
+                </select>
+              </label>
+              <label>
+                你现在最关注
+                <select id="focus" name="focus" required>
+                  <option value="career">事业与行动力</option>
+                  <option value="wealth">财富与稳定感</option>
+                  <option value="love">感情与魅力</option>
+                  <option value="calm">情绪稳定</option>
+                  <option value="balance">生活平衡</option>
+                </select>
+              </label>
+              <label>
+                喜欢的风格
+                <select id="style" name="style" required>
+                  <option value="minimal">低调简洁</option>
+                  <option value="premium">高级精致</option>
+                  <option value="soft">温柔明亮</option>
+                  <option value="bold">明显有记忆点</option>
+                  <option value="eastern">现代东方感</option>
+                </select>
+              </label>
+            </div>
+
+            <fieldset>
+              <legend>你愿意接收什么内容？</legend>
+              <label class="check">
+                <input type="checkbox" name="interest" value="weekly" checked />
+                每周幸运颜色与五行小建议
+              </label>
+              <label class="check">
+                <input type="checkbox" name="interest" value="report" checked />
+                完整个人八字五行报告
+              </label>
+              <label class="check">
+                <input type="checkbox" name="interest" value="style" />
+                日常搭配与礼物灵感
+              </label>
+            </fieldset>
+
+            <p class="privacy-note">
+              全球出生地均可使用：选择预设城市，或手动输入出生城市、经度和当地 UTC 时区。你的出生信息只用于生成分析与个性化建议，不会公开、出售或用于无关用途。
+            </p>
+            <button class="button primary full" type="submit">生成我的八字报告</button>
+          </form>
+
+          <aside class="result-panel" id="resultPanel" aria-live="polite">
+            <div class="empty-state">
+              <span class="result-symbol">五</span>
+              <h3>你的八字报告会显示在这里</h3>
+              <p>完成左侧问题后，你会看到四柱、日主旺衰、五行分布、逐步大运、关键年份、事业财富与感情走向。</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section lead-section" id="leadSection" hidden>
+        <div class="lead-copy">
+          <p class="eyebrow">Complete Guide</p>
+          <h2>获取完整个人报告</h2>
+          <p>
+            留下联系方式，我们会把完整报告、每周幸运颜色和后续免费内容发送给你。你也可以选择只接收知识分享，不接收产品信息。
+          </p>
+        </div>
+        <form class="lead-form" id="leadForm">
+          <label>
+            名字或昵称
+            <input id="leadName" name="leadName" type="text" placeholder="例如：Iris" required />
+          </label>
+          <label>
+            邮箱 / WhatsApp / Instagram
+            <input id="contact" name="contact" type="text" placeholder="留下一个你常用的联系方式" required />
+          </label>
+          <label>
+            未来如果有深度报告或个性化首饰，你可接受的预算？
+            <select id="budget" name="budget">
+              <option value="research">先只看免费内容</option>
+              <option value="sgd30">S$30 以下</option>
+              <option value="sgd80">S$30-S$80</option>
+              <option value="sgd180">S$80-S$180</option>
+              <option value="sgd300">S$180 以上</option>
+            </select>
+          </label>
+          <label class="check">
+            <input id="consent" type="checkbox" required />
+            我同意接收五行生活指南内容，并知道可以随时取消。
+          </label>
+          <button class="button primary full" type="submit">发送完整报告给我</button>
+          <p class="saved-message" id="savedMessage" role="status"></p>
+        </form>
+      </section>
+
+      <section class="section learn-section" id="learn">
+        <div class="section-heading">
+          <p class="eyebrow">Knowledge</p>
+          <h2>先建立信任，再谈推荐</h2>
+          <p>这些栏目适合你在 Instagram、Facebook 和网站内容里持续更新。</p>
+        </div>
+        <div class="article-grid">
+          <article>
+            <span>五行基础</span>
+            <h3>五行不是“缺什么就补什么”</h3>
+            <p>真正有价值的是理解一个人的倾向、节奏和需要平衡的方向，而不是用一句话定义命运。</p>
+          </article>
+          <article>
+            <span>幸运颜色</span>
+            <h3>颜色可以成为日常提醒</h3>
+            <p>红色不一定代表好运，黑色也不一定适合所有人。颜色要结合元素倾向和当下意图看。</p>
+          </article>
+          <article>
+            <span>生活风水</span>
+            <h3>风水也可以很现代</h3>
+            <p>空间、光线、收纳、方向感和仪式感，都可以是更温和、更实用的风水语言。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section trust-section" id="trust">
+        <div>
+          <p class="eyebrow">Trust First</p>
+          <h2>我们不是告诉你命运会怎样，而是帮助你更温和地理解自己。</h2>
+        </div>
+        <div class="trust-list">
+          <p>
+            所有分析仅作为生活方式、自我探索与个人搭配参考，不替代专业医疗、法律、财务或心理建议。
+          </p>
+          <p>
+            你可以不填写准确出生时间，我们也会提供基础分析。完整八字判断需要更精确的信息和人工复核。
+          </p>
+          <p>
+            后台测试阶段，潜客信息保存在当前浏览器本地。正式上线时建议接入加密数据库或合规邮件系统。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <strong>五行生活指南</strong>
+        <p>BaZi and Five Elements as a gentle self-discovery tool.</p>
+      </div>
+      <button class="text-button" id="exportLeads" type="button">导出本地潜客 CSV</button>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

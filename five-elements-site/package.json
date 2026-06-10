@@ -1,0 +1,16 @@
+{
+  "name": "five-elements-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "openai": "^6.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^48.0.0"
+  }
+}
