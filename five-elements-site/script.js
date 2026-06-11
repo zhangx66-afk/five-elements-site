@@ -170,9 +170,12 @@ document.getElementById("birthPlacePreset")?.addEventListener("change", event =>
   const value = event.currentTarget.value;
   if (value === "custom") return;
   const [longitude, timezone, city] = value.split("|");
-  document.getElementById("longitude").value = longitude;
-  document.getElementById("timezone").value = timezone;
-  document.getElementById("birthCity").value = city;
+  const longitudeInput = document.getElementById("longitude");
+  const timezoneInput = document.getElementById("timezone");
+  const cityInput = document.getElementById("birthCity");
+  if (longitudeInput) longitudeInput.value = longitude;
+  if (timezoneInput) timezoneInput.value = timezone;
+  if (cityInput) cityInput.value = city;
 });
 
 function mod(n, m) {
@@ -291,7 +294,7 @@ function getLocationFromForm(formData) {
   const parts = preset !== "custom" ? preset.split("|") : [];
   const longitude = Number(formData.get("longitude") || parts[0] || 0);
   const timezone = Number(formData.get("timezone") || parts[1] || 0);
-  const city = (formData.get("birthCity") || parts[2] || "未填写出生地").trim();
+  const city = (formData.get("birthCity") || parts[2] || "未填写出生国家/地区").trim();
   return { city, longitude, timezone };
 }
 
@@ -756,6 +759,19 @@ function buildStructuredChart(reading) {
       day: p.day,
       hour: p.hour
     },
+    blindSchoolPalaces: {
+      year: "年柱：祖上、早年环境、外部背景、家族气场，也看幼年阶段容易接触的资源与限制。",
+      month: "月柱：父母、成长条件、兄弟同辈、事业平台、社会规则，是判断格局和现实发展环境的重点。",
+      dayStem: "日干：命主自身、核心状态、承接能力和做事方式。",
+      dayBranch: "日支：夫妻宫、亲密关系、内在安全感，也看伴侣类型与婚恋相处模式。",
+      hour: "时柱：子女、晚景、长期成果、个人理想、晚年状态，也看一个人最终沉淀出的事业或生活结果。"
+    },
+    blindSchoolReadingRules: [
+      "先看原局成象，再看大运流年引动，不单独用一个十神下结论。",
+      "冲合刑害要落到具体生活领域：迁移、关系变化、工作变动、家庭责任、财务压力或身体状态。",
+      "十神应事要结合年龄：少年看家庭与学习，青年看选择和试错，中年看事业财富家庭责任，晚年看资产、健康和安定。",
+      "过去节点用于验证命盘，要用可能性表达，不做绝对断言。"
+    ],
     dayMaster: `${p.day.stem}${elementCn[reading.dayMaster]}`,
     strength: strengthLabel[reading.strength],
     pattern: reading.pattern,
@@ -780,27 +796,30 @@ function buildStructuredChart(reading) {
 }
 
 function buildAiPrompt(reading) {
-  return `你是一位资深八字命理师，擅长用传统命理体系做细致、克制、专业的命盘分析。请根据以下结构化命盘数据生成一份完整报告。
+  return `你是一位资深盲派八字命理师，擅长用象法、宫位、十神组合、干支作用和大运流年应期做细致、克制、专业的命盘分析。请根据以下结构化命盘数据生成一份完整报告。
 
 要求：
-1. 不要只套模板，要围绕原局、月令、日主强弱、十神组合、刑冲合害、大运和流年层层推演。
-2. 过去关键节点要用“容易对应/可能应在”表达，不要绝对断言。
-3. 不同年龄阶段要用不同应事逻辑：少年不写发财，老年不写升学创业。
-4. 事业、财富、感情、健康都要分开讲，并给具体可执行建议。
-5. 语气要像专业命理 App 的深度报告，既有术语，又能让普通用户读懂。
+1. 不要只套模板，要围绕原局、月令、日主强弱、十神组合、刑冲合害、穿害破合、大运和流年层层推演。
+2. 用盲派取象方式看四柱宫位：年柱看祖上与早年环境，月柱看父母与事业平台，日支看伴侣与内在关系，时柱看子女、晚景与长期成果。
+3. 十神必须落到具体生活象：印看学习证书贵人，财看钱资源现实压力，官杀看规则职位压力，食伤看表达作品自由度，比劫看朋友竞争合伙。
+4. 过去关键节点要用“容易对应/可能应在/适合回看”表达，不要绝对断言；要给出具体事件类型，例如搬迁、转学、换圈子、感情开始或结束、收入结构变化、家庭责任变化等。
+5. 不同年龄阶段要用不同应事逻辑：少年不写发财，老年不写升学创业。
+6. 事业、财富、感情、健康都要分开讲，并给具体可执行建议。
+7. 语气要像专业命理 App 的深度报告，既有术语，又能让普通用户读懂。
 
 请按以下结构输出：
 一、命盘总论
-二、日主强弱与格局
-三、十神组合与性格底层
-四、事业财富主线
-五、感情婚姻主线
-六、健康与状态提醒
-七、过去关键节点验证
-八、逐步大运详批
-九、未来三年流年重点
-十、下个月流月运势
-十一、调整建议与适合颜色/材质
+二、四柱宫位盲派取象
+三、日主强弱与格局
+四、十神组合与具体应事
+五、事业财富主线
+六、感情婚姻主线
+七、健康与状态提醒
+八、过去关键节点验证
+九、逐步大运详批
+十、未来三年流年重点
+十一、下个月流月运势
+十二、调整建议与适合颜色/材质
 
 命盘数据：
 ${JSON.stringify(buildStructuredChart(reading), null, 2)}`;
@@ -1084,7 +1103,7 @@ function buildAiStyleReport(reading) {
     past: `过去节点上，${currentCycle ? `当前之前已走过的大运中，${reading.luckCycles.filter(c => c.status === "已走过").slice(-2).map(c => `${c.age}的${c.pillar}运`).join("、")}较值得回看。` : ""} 少年阶段更可能应在家庭环境、学习管束、迁移或性格底色；青年阶段更可能应在专业选择、离家、圈层变化、恋爱苗头和第一次赚钱经验。若这些阶段与你实际经历能对上，说明排盘方向有参考价值。`,
     luck: currentCycle
       ? `当前处于${currentCycle.age}、${currentCycle.year}的${currentCycle.pillar}大运，阶段属性为${currentCycle.phase}，十神主题为${currentCycle.roles}。此运的核心不是一句好坏，而是${currentCycle.judgement} 事业上${currentCycle.career} 财富上${currentCycle.wealth} 感情家庭方面${currentCycle.love} 其中关键年份包括：${currentCycle.keyYears.join("；")}。${nextCycle ? `下一步${nextCycle.pillar}大运会把主题转向${nextCycle.roles}，需要提前做资源和心态准备。` : ""}`
-      : "当前大运信息不足，需要补充出生时间和出生地后再判断。",
+      : "当前大运信息不足，需要补充出生时间和出生国家/地区后再判断。",
     nextYears: `未来三年重点：${reading.yearly.map(y => `${y.year}年${y.pillar}，${y.tone}`).join(" ")} 其中${currentYear.year}年更要留意${currentYear.roles}被引动，事业上${currentYear.career} 财富上${currentYear.wealth}`,
     month: `下个月流月为${reading.monthly.pillar}，${reading.monthly.overall} 事业方面：${reading.monthly.career} 财富方面：${reading.monthly.wealth} 感情方面：${reading.monthly.love} 健康状态：${reading.monthly.wellness}`,
     advice: `调整建议：颜色和材质可以围绕${reading.color}，风格上适合${reading.material}。现实行动上，不建议把命理理解成“等运来”，而应把喜用方向落到具体行为：补能力、理现金流、控风险、选对合作关系、在合适年份主动推进。`
@@ -1094,10 +1113,9 @@ function buildAiStyleReport(reading) {
 function renderReading(reading) {
   const panel = document.getElementById("resultPanel");
   const { year, month, day, hour } = reading.pillars;
-  const report = buildAiStyleReport(reading);
   panel.innerHTML = `
-    <span class="result-kicker">AI 命理师报告原型</span>
-    <h3>免费命盘摘要：<span class="element-title">${reading.title}</span></h3>
+    <span class="result-kicker">专业深度测算</span>
+    <h3>先排命盘，再做逐盘分析</h3>
     <div class="pillar-grid" aria-label="四柱">
       <div><span>年柱</span><strong>${year.text}</strong></div>
       <div><span>月柱</span><strong>${month.text}</strong></div>
@@ -1105,42 +1123,52 @@ function renderReading(reading) {
       <div><span>时柱</span><strong>${hour.text}</strong></div>
     </div>
     <div class="score-card">
-      <strong>排盘依据</strong>
+      <strong>一、排盘依据</strong>
       <div class="result-list compact">
-        <div><strong>出生地与真太阳时</strong><span>${reading.location.city}｜经度 ${reading.location.longitude}｜UTC ${reading.location.timezone}｜真太阳时约 ${reading.trueSolarTime}</span></div>
-        <div><strong>日主与格局</strong><span>${day.stem}${elementCn[reading.dayMaster]}日主，${strengthLabel[reading.strength]}；${reading.pattern.label}</span></div>
-        <div><strong>喜用方向</strong><span>${elementNames(reading.useful.useful)}</span></div>
-        <div><strong>刑冲合害</strong><span>${reading.branchRelations.join("；")}</span></div>
-        <div><strong>十神组合</strong><span>${reading.tenGodCombos.join("；")}</span></div>
+        <div><strong>出生国家/地区与真太阳时</strong><span>${reading.location.city}｜UTC ${reading.location.timezone}｜真太阳时约 ${reading.trueSolarTime}</span></div>
+        <div><strong>日主与格局</strong><span>${day.stem}${elementCn[reading.dayMaster]}日主，${strengthLabel[reading.strength]}；${reading.pattern.label}；月令取 ${month.solarTerm || "节气"} 后的 ${month.branch}月</span></div>
+        <div><strong>天干十神</strong><span>年干 ${year.stem}-${year.tenGodStem}；月干 ${month.stem}-${month.tenGodStem}；日干 ${day.stem}-日主；时干 ${hour.stem}-${hour.tenGodStem}</span></div>
+        <div><strong>地支藏干</strong><span>年支：${hiddenStemText(year)}；月支：${hiddenStemText(month)}；日支：${hiddenStemText(day)}；时支：${hiddenStemText(hour)}</span></div>
+      </div>
+    </div>
+    <div class="forecast-block chart-analysis-block">
+      <h4>二、盲派宫位取象</h4>
+      <div class="result-list compact">
+        <div><strong>年柱</strong><span>${palaceText("年柱", year)}</span></div>
+        <div><strong>月柱</strong><span>${palaceText("月柱", month)}</span></div>
+        <div><strong>日柱</strong><span>${palaceText("日柱", day)}</span></div>
+        <div><strong>时柱</strong><span>${palaceText("时柱", hour)}</span></div>
       </div>
     </div>
     <div class="score-card">
-      <strong>五行分布</strong>
+      <strong>三、五行强弱与喜忌</strong>
       ${scoreBars(reading.scores)}
+      <div class="result-list compact chart-extra-list">
+        <div><strong>喜用方向</strong><span>${elementNames(reading.useful.useful)}</span></div>
+        <div><strong>需要谨慎的方向</strong><span>${elementNames(reading.useful.avoid)}</span></div>
+        <div><strong>取用逻辑</strong><span>${reading.useful.logic}</span></div>
+      </div>
     </div>
-    <div class="forecast-block pro-report">
-      <h4>深度报告预览</h4>
-      <section><h5>一、命盘总论</h5><p>${report.overview}</p></section>
-      <section><h5>二、格局与十神结构</h5><p>${report.structure}</p></section>
-      <section><h5>三、事业财富主线</h5><p>${report.careerWealth}</p></section>
-      <section><h5>四、感情婚姻主线</h5><p>${report.love}</p></section>
-      <section><h5>五、过去关键节点验证</h5><p>${report.past}</p></section>
-      <section><h5>六、当前大运详批</h5><p>${report.luck}</p></section>
-      <section><h5>七、未来三年流年</h5><p>${report.nextYears}</p></section>
-      <section><h5>八、下月运势</h5><p>${report.month}</p></section>
-      <section><h5>九、调整建议</h5><p>${report.advice}</p></section>
+    <div class="forecast-block chart-analysis-block">
+      <h4>四、原局作用与大运线索</h4>
+      <div class="result-list compact">
+        <div><strong>刑冲合害</strong><span>${reading.branchRelations.join("；")}</span></div>
+        <div><strong>十神组合</strong><span>${reading.tenGodCombos.join("；")}</span></div>
+        <div><strong>大运方向</strong><span>${reading.luck.text}</span></div>
+      </div>
+      <div class="result-list compact luck-preview-list">
+        ${renderLuckPreview(reading)}
+      </div>
     </div>
-    <div class="forecast-block ai-prompt-block">
-      <h4>API 接入提示词</h4>
-      <p class="forecast-note">正式部署后，点击下方按钮会把这份结构化命盘发送给 DeepSeek，由 AI 生成更自然的逐盘深度报告。API Key 只放在服务器环境变量里，不会暴露在网页代码中。</p>
-      <button class="button primary generate-ai-report" type="button">生成 DeepSeek 深度报告</button>
+    <div class="forecast-block ai-report-block">
+      <h4>五、深度测算报告</h4>
+      <p class="forecast-note">命盘已完成基础排盘。系统正在结合四柱宫位、十神组合、刑冲合害、大运流年与下月气场生成完整解读。</p>
+      <button class="button primary generate-ai-report" type="button">重新生成深度报告</button>
       <div class="api-status" id="apiStatus" role="status"></div>
       <div class="deepseek-report" id="deepseekReport" hidden></div>
-      <textarea class="ai-prompt" readonly>${reading.aiPrompt}</textarea>
-      <button class="button secondary copy-ai-prompt" type="button">复制深度解读提示词</button>
     </div>
     <p class="result-disclaimer">
-      说明：当前深度报告为本地模拟版本，专业感会明显优于模板卡片；正式上线建议接入 AI API，让模型基于结构化命盘逐盘生成完整报告。健康内容仅作生活状态提醒，不替代医疗建议；事业、财富和感情内容仅作参考，不构成保证。
+      说明：命理分析用于趋势参考与自我观察，不替代医疗、法律、投资等专业建议；事业、财富和感情内容不构成结果承诺。
     </p>
   `;
 
@@ -1167,6 +1195,26 @@ function formatAiReport(report) {
     .join("");
 }
 
+function palaceText(name, pillar) {
+  const map = {
+    年柱: "祖上、早年环境、家族气场、外部背景",
+    月柱: "父母、成长条件、事业平台、社会规则",
+    日柱: "自我核心、夫妻宫、亲密关系、内在安全感",
+    时柱: "子女、晚景、长期成果、个人追求"
+  };
+  return `${pillar.text}｜${pillar.stem}${elementCn[pillar.element]}，支藏 ${hiddenStemText(pillar)}｜${map[name]}`;
+}
+
+function renderLuckPreview(reading) {
+  const cycles = reading.luckCycles.slice(0, 5);
+  return cycles.map(cycle => `
+    <div>
+      <strong>${cycle.status}｜${cycle.age}｜${cycle.pillar}大运</strong>
+      <span>${cycle.phase}；十神主题：${cycle.roles}；关键年份：${cycle.keyYears.join("、")}</span>
+    </div>
+  `).join("");
+}
+
 async function generateDeepseekReport() {
   if (!latestReading) return;
 
@@ -1176,7 +1224,7 @@ async function generateDeepseekReport() {
   if (!button || !status || !reportBox) return;
 
   button.disabled = true;
-  button.textContent = "DeepSeek 正在生成...";
+  button.textContent = "正在生成...";
   status.textContent = "正在根据四柱、十神、格局、大运流年生成深度报告，请稍等。";
   reportBox.hidden = true;
   reportBox.innerHTML = "";
@@ -1193,20 +1241,20 @@ async function generateDeepseekReport() {
 
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      throw new Error(data.error || "DeepSeek 接口暂时不可用");
+      throw new Error(data.error || "深度测算接口暂时不可用");
     }
 
     reportBox.innerHTML = `
-      <h5>DeepSeek 生成版</h5>
+      <h5>专业深度报告</h5>
       ${formatAiReport(data.report)}
     `;
     reportBox.hidden = false;
-    status.textContent = "已生成 DeepSeek 深度报告。";
+    status.textContent = "深度报告已生成。";
   } catch (error) {
-    status.textContent = `还不能直接生成：${error.message}。如果你现在是 file:// 本地预览，需要先部署到 Vercel，或用本地服务器运行后端接口。`;
+    status.textContent = `深度报告暂时生成失败：${error.message}。请稍后再试。`;
   } finally {
     button.disabled = false;
-    button.textContent = "生成 DeepSeek 深度报告";
+    button.textContent = "重新生成深度报告";
   }
 }
 
@@ -1215,23 +1263,13 @@ document.getElementById("readingForm").addEventListener("submit", event => {
   const formData = new FormData(event.currentTarget);
   latestReading = buildReading(formData);
   renderReading(latestReading);
+  generateDeepseekReport();
 });
 
 document.addEventListener?.("click", event => {
   if (event.target.classList.contains("generate-ai-report")) {
     generateDeepseekReport();
-    return;
   }
-
-  if (!event.target.classList.contains("copy-ai-prompt")) return;
-  const textarea = document.querySelector(".ai-prompt");
-  if (!textarea) return;
-  textarea.select();
-  document.execCommand("copy");
-  event.target.textContent = "已复制";
-  setTimeout(() => {
-    event.target.textContent = "复制深度解读提示词";
-  }, 1600);
 });
 
 document.getElementById("leadForm").addEventListener("submit", event => {

@@ -84,31 +84,87 @@
                 <input id="birthClockTime" name="birthClockTime" type="time" required />
               </label>
               <label>
-                出生地
+                出生国家 / 地区
                 <select id="birthPlacePreset" name="birthPlacePreset">
-                  <option value="121.47|8|上海">上海 Shanghai</option>
-                  <option value="116.40|8|北京 Beijing</option>
-                  <option value="113.26|8|广州 Guangzhou</option>
-                  <option value="114.17|8|深圳 Shenzhen</option>
-                  <option value="114.17|8|香港 Hong Kong</option>
-                  <option value="103.82|8|新加坡 Singapore</option>
-                  <option value="101.69|8|吉隆坡 Kuala Lumpur</option>
-                  <option value="-73.94|-5|纽约 New York</option>
-                  <option value="-118.24|-8|洛杉矶 Los Angeles</option>
-                  <option value="custom">手动输入经度/时区</option>
+                  <optgroup label="亚洲 Asia">
+                    <option value="103.82|8|新加坡 Singapore" selected>新加坡 Singapore</option>
+                    <option value="114.17|8|香港 Hong Kong">香港 Hong Kong</option>
+                    <option value="121.47|8|中国 China">中国 China</option>
+                    <option value="121.56|8|台湾 Taiwan">台湾 Taiwan</option>
+                    <option value="139.69|9|日本 Japan">日本 Japan</option>
+                    <option value="126.98|9|韩国 South Korea">韩国 South Korea</option>
+                    <option value="101.69|8|马来西亚 Malaysia">马来西亚 Malaysia</option>
+                    <option value="100.50|7|泰国 Thailand">泰国 Thailand</option>
+                    <option value="106.85|7|越南 Vietnam">越南 Vietnam</option>
+                    <option value="120.98|8|菲律宾 Philippines">菲律宾 Philippines</option>
+                    <option value="106.85|7|印尼西部 Indonesia West">印尼西部 Indonesia West</option>
+                    <option value="116.12|8|印尼中部 Indonesia Central">印尼中部 Indonesia Central</option>
+                    <option value="140.70|9|印尼东部 Indonesia East">印尼东部 Indonesia East</option>
+                    <option value="96.16|6.5|缅甸 Myanmar">缅甸 Myanmar</option>
+                    <option value="104.92|7|柬埔寨 Cambodia">柬埔寨 Cambodia</option>
+                    <option value="102.63|7|老挝 Laos">老挝 Laos</option>
+                    <option value="77.21|5.5|印度 India">印度 India</option>
+                    <option value="90.41|6|孟加拉 Bangladesh">孟加拉 Bangladesh</option>
+                    <option value="84.12|5.75|尼泊尔 Nepal">尼泊尔 Nepal</option>
+                    <option value="79.86|5.5|斯里兰卡 Sri Lanka">斯里兰卡 Sri Lanka</option>
+                    <option value="73.51|5|巴基斯坦 Pakistan">巴基斯坦 Pakistan</option>
+                    <option value="51.39|3.5|伊朗 Iran">伊朗 Iran</option>
+                    <option value="46.67|3|沙特 Saudi Arabia">沙特 Saudi Arabia</option>
+                    <option value="55.27|4|阿联酋 UAE">阿联酋 UAE</option>
+                    <option value="32.85|3|土耳其 Turkey">土耳其 Turkey</option>
+                  </optgroup>
+                  <optgroup label="欧洲 Europe">
+                    <option value="-0.13|0|英国 United Kingdom">英国 United Kingdom</option>
+                    <option value="2.35|1|法国 France">法国 France</option>
+                    <option value="13.40|1|德国 Germany">德国 Germany</option>
+                    <option value="12.50|1|意大利 Italy">意大利 Italy</option>
+                    <option value="-3.70|1|西班牙 Spain">西班牙 Spain</option>
+                    <option value="4.90|1|荷兰 Netherlands">荷兰 Netherlands</option>
+                    <option value="8.54|1|瑞士 Switzerland">瑞士 Switzerland</option>
+                    <option value="18.07|1|瑞典 Sweden">瑞典 Sweden</option>
+                    <option value="24.94|2|芬兰 Finland">芬兰 Finland</option>
+                    <option value="21.01|1|波兰 Poland">波兰 Poland</option>
+                    <option value="23.32|2|希腊 Greece">希腊 Greece</option>
+                    <option value="37.62|3|俄罗斯西部 Russia West">俄罗斯西部 Russia West</option>
+                    <option value="92.87|7|俄罗斯中部 Russia Central">俄罗斯中部 Russia Central</option>
+                    <option value="131.89|10|俄罗斯东部 Russia East">俄罗斯东部 Russia East</option>
+                  </optgroup>
+                  <optgroup label="美洲 Americas">
+                    <option value="-74.00|-5|美国东部 USA East">美国东部 USA East</option>
+                    <option value="-87.62|-6|美国中部 USA Central">美国中部 USA Central</option>
+                    <option value="-104.99|-7|美国山区 USA Mountain">美国山区 USA Mountain</option>
+                    <option value="-118.24|-8|美国西部 USA West">美国西部 USA West</option>
+                    <option value="-79.38|-5|加拿大东部 Canada East">加拿大东部 Canada East</option>
+                    <option value="-114.07|-7|加拿大西部 Canada West">加拿大西部 Canada West</option>
+                    <option value="-99.13|-6|墨西哥 Mexico">墨西哥 Mexico</option>
+                    <option value="-46.63|-3|巴西东部 Brazil East">巴西东部 Brazil East</option>
+                    <option value="-60.02|-4|巴西西部 Brazil West">巴西西部 Brazil West</option>
+                    <option value="-58.38|-3|阿根廷 Argentina">阿根廷 Argentina</option>
+                    <option value="-70.66|-4|智利 Chile">智利 Chile</option>
+                    <option value="-74.07|-5|哥伦比亚 Colombia">哥伦比亚 Colombia</option>
+                    <option value="-77.04|-5|秘鲁 Peru">秘鲁 Peru</option>
+                  </optgroup>
+                  <optgroup label="大洋洲 Oceania">
+                    <option value="151.21|10|澳大利亚东部 Australia East">澳大利亚东部 Australia East</option>
+                    <option value="138.60|9.5|澳大利亚中部 Australia Central">澳大利亚中部 Australia Central</option>
+                    <option value="115.86|8|澳大利亚西部 Australia West">澳大利亚西部 Australia West</option>
+                    <option value="174.76|12|新西兰 New Zealand">新西兰 New Zealand</option>
+                    <option value="178.45|12|斐济 Fiji">斐济 Fiji</option>
+                  </optgroup>
+                  <optgroup label="非洲 Africa">
+                    <option value="31.24|2|埃及 Egypt">埃及 Egypt</option>
+                    <option value="-6.84|1|摩洛哥 Morocco">摩洛哥 Morocco</option>
+                    <option value="3.06|1|阿尔及利亚 Algeria">阿尔及利亚 Algeria</option>
+                    <option value="10.18|1|突尼斯 Tunisia">突尼斯 Tunisia</option>
+                    <option value="3.38|1|尼日利亚 Nigeria">尼日利亚 Nigeria</option>
+                    <option value="-0.19|0|加纳 Ghana">加纳 Ghana</option>
+                    <option value="36.82|3|肯尼亚 Kenya">肯尼亚 Kenya</option>
+                    <option value="39.21|3|坦桑尼亚 Tanzania">坦桑尼亚 Tanzania</option>
+                    <option value="28.05|2|南非 South Africa">南非 South Africa</option>
+                    <option value="57.50|4|毛里求斯 Mauritius">毛里求斯 Mauritius</option>
+                  </optgroup>
+                  <option value="0|0|其他国家/地区 Other">其他国家/地区 Other</option>
                 </select>
-              </label>
-              <label>
-                出生城市 / 地区
-                <input id="birthCity" name="birthCity" type="text" placeholder="例如：Singapore / New York / Paris" />
-              </label>
-              <label>
-                出生地经度
-                <input id="longitude" name="longitude" type="number" step="0.01" value="121.47" />
-              </label>
-              <label>
-                当地时区 UTC
-                <input id="timezone" name="timezone" type="number" step="1" value="8" />
               </label>
               <label>
                 性别
@@ -157,7 +213,7 @@
             </fieldset>
 
             <p class="privacy-note">
-              全球出生地均可使用：选择预设城市，或手动输入出生城市、经度和当地 UTC 时区。你的出生信息只用于生成分析与个性化建议，不会公开、出售或用于无关用途。
+              为了让测算更简单，出生地只需选择国家或地区。美国、加拿大、澳洲、俄罗斯等跨时区国家已按区域拆分；如需极精确排盘，后续可再补充具体城市。
             </p>
             <button class="button primary full" type="submit">生成我的八字报告</button>
           </form>
